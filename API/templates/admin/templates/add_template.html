@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}{% if existingTemplate %}Update{% else %}Add{% endif %} Business card template{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Add new business card template</h1>
+        
+        <form action="{% if existingTemplate %}/admin/edit_template/{{ existingTemplate.id }}{% else %}/admin/add_template{% endif %}" method="post" class="card-temaplte-form" enctype="multipart/form-data">
+            <div>
+                <label for="full-name-input" class="form-label">Template title</label>
+                <input type="text" name="title" id="temaplte-form__title-input" style="width: 15rem;" class="form-control" {% if existingTemplate %}value="{{ existingTemplate.title }}"{% endif %}><br>
+            </div>
+
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Background</label>
+                <input style="width: 15rem;" accept="image/png, image/jpeg" class="form-control" name="background" type="file" id="temaplte-form__background-input" {% if existingTemplate %}value="/{{ existingTemplate.background }}"{% endif %}>
+            </div>
+
+            <input type="text" {% if existingTemplate %}value="{{ existingTemplate.templateData }}"{% endif %} name="templateData" id="temaplte-form__template-data-input" class="text-input"><br>
+
+            <h2>Mobile preview:</h2>
+            <div class="template-preview">
+                
+                <div class="temaplte-wrapper">
+                    <img draggable="false" class="template-preview__background-image" {% if existingTemplate %}src="/{{ existingTemplate.background }}"{% endif %}>
+
+                </div>
+
+                <div class="template__text-edit__wrapper">
+                    <div class="mb-3">
+                        <h3 class="editable-text-label">Currently editable text: <u id="edilable-property">Full name</u></h3>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="font-size__input" class="form-label">Font size:</label>
+                        <input type="number" class="form-control" id="font-size__numeric-input" min="3" max="25">
+                        <input type="range" class="form-range" id="font-size__input" min="3" max="25" step="1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="font-weight__input" class="form-label">Font weight:</label>
+                        <input type="number" class="form-control" id="font-weight__numeric-input" min="200" max="900" step="100">
+                        <input type="range" class="form-range" id="font-weight__input" min="200" max="900" step="100">
+                    </div>
+                    <div class="mb-3">
+                        <label for="color__input" class="form-label">Color:</label>
+                        <input type="color" class="form-control form-control-color" id="color__input" title="Choose font color">
+                    </div>
+                    <div class="mb-3 content__input-wrapper">
+                        <span>Content: </span>
+                        <input type="text" id="content__input">
+                    </div>
+
+                    <div class="mb-3">
+                        <button type="button" id="add-additional-text-button" class="btn btn-secondary">Add additional text</button>
+                        <button type="button" id="delete-text-button" class="btn btn-danger">Delete text</button>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        
+    </div>
+
+    <script src="/static/script/cardTemplate.js"></script>
+{% endblock %}

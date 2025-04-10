@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Global categories list{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h2>Add new global category: </h2>
+        <form action="/admin/create_global_category" method="post" class="global-category-form mb-4">
+            <div class="mb-3">
+                <label for="category-title-input" class="form-label">Global category title: </label>
+                <input type="text" name="title" id="category-title-input" class="form-control">
+            </div>
+            <div class="mb-2">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </form>
+
+        <br>
+        <div class="categories-list">
+            {% for cat, count in categories %}
+                <div class="categories-list__item mb-3" id="categories-list__item-{{ cat.id }}">
+                    <div class="d-flex justify-content-between">
+                        <span class="categories-list__item-title">{{ cat.title }}</span>
+                        <span class="categories-list__item-count badge bg-primary rounded-pill" style="margin-top: 3px;">{{ count }}</span>
+                    </div>
+                    <br>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal-{{ cat.id }}">Update</button>
+                    <div class="modal fade" id="updateModal-{{ cat.id }}" tabindex="-1" aria-labelledby="UpdateModalLabel-{{ cat.id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-dark" id="UpdateModalLabel-{{ cat.id }}">Update {% if cat.title %}{{ cat.title }}{% endif %}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <form action="/admin/update_global_category/{{ cat.id }}" method="post">
+                                    <div class="modal-body text-dark">
+                                        <label for="category-update-title-input" class="form-label">Global category title: </label>
+                                        <input type="text" name="title" id="category-update-title-input" class="form-control" value="{{ cat.title }}">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-danger update-category-button" data-bs-dismiss="modal" data-id="{{ cat.id }}">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ cat.id }}">Delete</button>
+                    <div class="modal fade" id="deleteModal-{{ cat.id }}" tabindex="-1" aria-labelledby="DeleteModalLabel-{{ cat.id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-dark" id="DeleteModalLabel-{{ cat.id }}">Delete {% if cat.title %}{{ cat.title }}{% endif %}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-dark">
+                                    Are you sure you want to delete {{ cat.title }}?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No, Close</button>
+                                    <a href="/admin/delete_global_category/{{ cat.id }}">
+                                        <button type="button" class="btn btn-danger delete-category-button" data-bs-dismiss="modal" data-id="{{ cat.id }}">Delete</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

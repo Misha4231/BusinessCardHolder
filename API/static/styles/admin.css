@@ -1,0 +1,89 @@
+.login-form-container {
+    display: flex;
+    justify-content: center;
+}
+.admin-login-form label {
+    font-size: var(--f16);
+    color: var(--white);
+}
+.admin-login-form-input {
+    padding: 8px;
+    border-radius: 3px;
+    outline: none;
+    font-size: var(--f14);
+    color: var(--dark);
+    width: 250px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+.admin-login-form-input::placeholder {
+    font-size: var(--f14);
+    color: var(--dark);
+}
+.admin-login-form button {
+    margin: 10px 0;
+}
+@media (max-width: 466px) {
+    .admin-login-form-input {
+        padding: 4px;
+        border-radius: 3px;
+        width: 200px;
+        margin: 10px 0px;
+    }
+}
+.admin-panel-container {
+    color: var(--white);
+}
+.session-admin {
+    width: min-content;
+    color: var(--white);
+}
+.session-admin .gray-button {
+    padding: 5px;
+}
+.admin-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    object-fit: cover;
+}
+.admin-info {
+    display: flex;
+    margin-bottom: 15px;
+}
+.admin-text-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-left: 10px;
+    
+}
+.interact-forms-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+#choosen-avatar-name {
+    margin: 5px 0;
+}
+
+@media (max-width: 1347px) {
+    .interact-forms-container {
+        flex-direction: column;
+    }
+    .interact-forms-container form {
+        margin-bottom: 20px;
+    }
+    .admin-text-info {
+        font-size: var(--f14);
+    }
+
+}
+
+.global-category-form {
+    width: 20rem;
+}
+.categories-list__item {
+    width: 20rem;
+}

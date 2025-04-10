@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Templates{% endblock %}
+
+{% block content %}
+    <div class="container">
+
+        <div class="templates-list">
+            <h1 class="templates-list-heading">Add new business card template</h1>
+
+            {% for template in templates %}
+                <div class="templates-list__item" id="template-{{ template.id }}">
+                    <h3 class="templates-list__item-title">{{ template.title }}</h3>
+
+                    <div class="templates-list__view-wrapper">
+                        <div class="templates-list__view" data-template="{{ template.templateData }}">
+                            <img class="templates-list__view-image" src="/{{ template.background }}" draggable="false" alt="{{ template.title }} image">
+
+                        </div>
+                    </div>
+
+                    <div class="templates-list__item-manage-pannel">
+                        <button class="btn btn-primary" data-id="{{ template.id }}">
+                            <a href="/admin/edit_template/{{ template.id }}">Edit</a>
+                        </button>
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ template.id }}">Delete</button>
+                    </div>
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="deleteModal-{{ template.id }}" tabindex="-1" aria-labelledby="DeleteModalLabel-{{ template.id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-dark" id="DeleteModalLabel-{{ template.id }}">Delete template {% if template.title %}{{ template.title }}{% endif %}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-dark">
+                                    Are you sure you want to delete {{ template.title }} template?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No, Close</button>
+                                    <button type="button" class="btn btn-danger delete-template-button" data-bs-dismiss="modal" data-id="{{ template.id }}">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="/static/script/templatesList.js"></script>    
+{% endblock %}

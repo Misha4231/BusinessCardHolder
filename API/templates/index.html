@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}BCard Holder | Digitalize the Way You Manage Business Cards{% endblock %}
+
+{% block content %}
+    <div class="index-page">
+        <div class="container">
+            <section class="index-page-container">
+                <div class="index-page-left">
+                    <h1 class="page-title"><span class="orange-B">B</span>Card Holder - Your Ultimate Business Card Organizer!</h1>
+                    <p class="page-description">
+                        <span class="orange-B">B</span>Card Holder is the mobile app for Android and iOS that revolutionizes how you manage and exchange business cards. With our intuitive platform, you can effortlessly post your business cards, share them with other users via QR code or link, and efficiently save and filter saved cards to suit your networking needs.
+                    </p>
+
+                    <h2 class="key-features">Key Features:</h2>
+                    <ul class="key-features-list">
+                        <li class="key-features-list__item">
+                            <b>Post and Share: </b>
+                            Quickly digitize your business cards and share them with colleagues, clients, and contacts in seconds. Say goodbye to outdated paper cards and hello to seamless digital sharing.
+                        </li>
+                        <li class="key-features-list__item">
+                            <b>QR Code and Link Sharing: </b>
+                            Share your business cards with ease using QR codes or shareable links. No more fumbling with physical cards—simply scan or click to exchange contact information effortlessly.
+                        </li>
+                        <li class="key-features-list__item">
+                            <b>Save and Filter: </b>
+                            Store all your received business cards securely within the app and easily filter and organize them according to your preferences. Find the right contact when you need it, without the clutter.
+                        </li>
+                    </ul>
+
+                    <p class="post-description"><span class="orange-B">B</span>Card Holder is the way you manage your business contacts, making networking more efficient and effective than ever before. Download now and take control of your professional connections!</p>
+                </div>
+                <div class="index-page-right">
+                    <!--<img src="{{ url_for('static', path='images/app-image.png') }}" alt="app image">-->
+                    <img src="/static/images/app-image.png" alt="app image">
+                </div>
+            </section>
+
+            <section class="faq-container">
+                <h2 class="faq-title">Frequently asked questions:</h2>
+                
+                <div class="faq">
+                    <button class="faq-accordion">
+                        Why should I use BCard Holder?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-panel">
+                        <p>BCard Holder eliminates the need for traditional paper business cards, making networking more convenient and environmentally friendly.</p>
+                    </div>
+                </div>
+                <div class="faq">
+                    <button class="faq-accordion">
+                        How does BCard Holder work?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-panel">
+                        <p>BCard Holder allows you to digitize your business cards and share them effortlessly with others using QR codes or shareable links.</p>
+                    </div>
+                </div>
+                <div class="faq">
+                    <button class="faq-accordion">
+                        Can I share my business cards with others using BCard Holder?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-panel">
+                        <p>Yes, you can easily share your digitized business cards with colleagues, clients, and contacts within seconds.</p>
+                    </div>
+                </div>
+                <div class="faq">
+                    <button class="faq-accordion">
+                        Is it easy to organize and access my saved business cards on BCard Holder?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-panel">
+                        <p>Absolutely! BCard Holder provides efficient filtering and organization features, allowing you to quickly find the right contact when you need it.</p>
+                    </div>
+                </div>
+                <div class="faq">
+                    <button class="faq-accordion">
+                        Is BCard Holder available for download on both Android and iOS devices?
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-panel">
+                        <p>Yes, BCard Holder is available for download on both the Google Play Store for Android devices and the Apple App Store for iOS devices.</p>
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="also-check-section">
+                <h2>You can also check: </h2>
+                <ul>
+                    <li class="also-check-item">
+                        <a class="also-check-link" href="/privacy_policy">Privacy policy</a>
+                    </li>
+                    <li class="also-check-item">
+                        <a class="also-check-link" href="/how_to_delete_user">Instructions how to delete your data from app</a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </div>
+
+    <script src="/static/script/index.js"></script>
+
+{% endblock %}

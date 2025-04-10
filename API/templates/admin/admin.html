@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Sing in admin panel{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="admin-panel-container">
+            <div class="interact-forms-container">
+                <form action="/admin/interact_card" method="post" class="card bg-dark">
+                    <div class="card-body">
+                        <h2 class="card-title">Interact with business card</h2>
+                        
+                        <div class="mb-2">
+                            <label for="cardId" class="form-label">Card id</label>
+                            <input class="form-control" type="number" name="cardId" id="cardId" required><br>
+                        </div>
+                        <div class="mb-4">
+                            <label for="cardId" class="form-label">Interact type</label>
+                            <select class="form-select" name="interactType" id="interactType">
+                                <option value="block">Block</option>
+                                <option value="unblock">Unblock</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        
+                        {% if card_error_message %}
+                            <p class="error-message">
+                                {{ card_error_message }}
+                            </p>
+                        {% endif %}
+                    </div>
+                </form>
+
+                <form action="/admin/interact_user" method="post" class="card bg-dark">
+                    <div class="card-body">
+                        <h2 class="card-title">Interact with user</h2>
+                        <div class="mb-2">
+                            <label for="email" class="form-label">Email or username</label>
+                            <input class="form-control" type="email" name="email" id="email" required><br>
+                        </div>
+                        <div class="mb-4">
+                            <label for="cardId" class="form-label">Interact type</label>
+                            <select class="form-select" name="interactType" id="interactType">
+                                <option value="block">Block</option>
+                                <option value="unblock">Unblock</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+
+                        {% if user_error_message %}
+                            <p class="error-message">
+                                {{ user_error_message }}
+                            </p>
+                        {% endif %}
+                    </div>
+                </form>
+
+                <form action="/admin/new_admin" class="card bg-dark" method="post" enctype="multipart/form-data">
+                    <div class="card-body">
+                        <h2 class="card-title">Create new admin</h2>
+
+                        <div class="mb">
+                            <label for="email" class="form-label">Email</label>
+                            <input class="form-control" type="email" name="email" id="email-input" required><br>
+                        </div>
+                        <div class="mb">
+                            <label for="username-input" class="form-label">Username</label>
+                            <input class="form-control" type="text" name="username" id="username-input" required><br>
+                        </div>
+                        <div class="mb">
+                            <label for="full-name-input" class="form-label">Full name</label>
+                            <input class="form-control" type="text" name="fullName" id="full-name-input"><br>
+                        </div>
+                        <div class="mb">
+                            <label for="password-input" class="form-label">Password</label>
+                            <input class="form-control" type="password" name="password" id="password-input" required><br>
+                        </div>
+                        <div class="mb">
+                            <label for="password-confirmation-input" class="form-label">Password confirmation</label>
+                            <input class="form-control" type="password" id="password-confirmation-input" required><br>
+                        </div>
+        
+                        <div class="mb-3">
+                            <label for="avatar-input" class="form-label">Avatar</label>
+                            <input accept="image/png, image/jpeg" class="form-control" type="file" id="avatar-input" name="avatar">
+                        </div>
+                        <p id="choosen-avatar-name"></p>
+
+                        <button type="submit" class="btn btn-primary" id="new-admin-submit-button">Submit</button>
+                        {% if newuser_error_message %}
+                            <p class="error-message">
+                                {{ newuser_error_message }}
+                            </p>
+                        {% endif %}
+                        <p class="password-error-message" style="display: none;margin-top: 10px;"></p>
+                    </div>
+                </form>
+            </div>
+
+            <h3>Links: </h3><br>
+            <ul>
+                <li><a href="/admin/add_template">Add new template</a></li>
+                <li><a href="/admin/template_list">View all templates</a></li>
+                <li><a href="/admin/global_categories_list">View all global categories</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('#new-admin-submit-button').addEventListener('click', (event) => {
+            if (document.querySelector('#password-input').value != document.querySelector('#password-confirmation-input').value) {
+                event.preventDefault();
+
+                document.querySelector('.password-error-message').style.display = 'block';
+                document.querySelector('.password-error-message').textContent = "Passwords don't match";
+            }
+        })
+    </script>
+{% endblock %}

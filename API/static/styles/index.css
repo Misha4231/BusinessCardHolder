@@ -1,0 +1,93 @@
+.index-page {
+    color: var(--white);
+}
+.page-description {
+    margin: 35px 0;
+}
+.key-features {
+    margin: 20px 0;
+}
+.key-features-list__item {
+    margin: 10px 0;
+}
+.post-description {
+    margin: 50px 0;
+}
+.index-page-container {
+    display: flex;
+    justify-content: space-between;
+}
+.index-page-left {
+    width: 60%;
+}
+.index-page-right img {
+    height: 600px;
+}
+
+@media (max-width: 730px) {
+    .index-page-container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.delete-user-instructions-wrapper {
+    color: var(--white);
+}
+
+.faq-title {
+    margin-top: 20px;
+}
+.faq-accordion {
+    background-color: var(--dark);
+    color: var(--white);
+    cursor: pointer;
+    font-size: var(--f18);
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: var(--w600);
+}
+.faq-accordion i {
+    font-size: var(--f18);
+}
+.faq-accordion-active, .faq-accordion:hover {
+    background-color: var(--lighterDark);
+}
+.faq-panel {
+    padding: 0 18px;
+    background-color: var(--white);
+    display: none;
+    overflow: hidden;
+    background-color: var(--lighterDark);
+    padding: 1rem 2rem 2.5rem 2rem;
+}
+.faq-panel p {
+    font-size: var(--f16);
+    line-height: 1.4;
+}
+
+.faq {
+    border-bottom: 1px solid var(--white);
+    margin: 10px 0;
+}
+.faq-active {
+    border: none;
+}
+
+.also-check-section {
+    margin-top: 60px;
+}
+.also-check-item {
+    margin: 15px;
+    margin-right: 0;
+}
+.also-check-link {
+    text-decoration: underline;
+}

@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+
+{% block title %}{% if cardData.ownerRelation.username %}{{ cardData.ownerRelation.username }}'s{% endif %} business card{% endblock %}
+
+{% block content %}
+    <div class="card-detail">
+        <div class="container">
+            <a href="buisnesscardholder://card/{{ cardData.id }}" class="open-in-app-link">
+                <div class="open-in-app">
+                    Open in mobile app
+                </div>
+            </a>
+
+            <div class="card-detail__wrapper">
+                <div class="card-detail-left">
+                    <div class="card-image-wrapper">
+                        {% if cardData.templateJson %}    
+                            <div class="detail-template__view" data-template='{{ cardData.templateJson.templateData | tojson | safe }}'>
+                                <img class="detail-template__view-image" src="/{{ cardData.templateJson.background }}" draggable="false" alt="background">
+    
+                            </div>
+                        {% else %}
+                            <img src="/{{ cardData.image }}" id="card-detail-image" alt="Business card">
+                        {% endif %}
+                        
+                    </div>
+
+                    <div class="user-info">
+                        <img src="{{ cardData.ownerRelation.avatar }}" alt="avatar" class="user-avatar">
+                        <div class="user-name-info">
+                            {% if cardData.ownerRelation.username %}
+                                <h3 class="user-username">@{{ cardData.ownerRelation.username }}</h3>
+                            {% endif %}
+                            <h4 class="user-fullname">
+                                {% if cardData.ownerRelation.fullName %}
+                                    {{ cardData.ownerRelation.fullName }}
+                                {% endif %}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-detail-right">
+                    {% if cardData.category_id %}
+                    <h2 class="card-category category-title">
+                        {{ cardData.categotyRelation.title }}
+                    </h2>
+                    {% endif %}
+
+                    {% if cardData.cityRelation %}
+                        <h3 class="card-localization category-title">
+                            <img src="{{ url_for('static', path='/images/localization_icon.png') }}" alt="localization:" class="category-icon">
+                            {{ cardData.cityRelation.title }}
+                        </h3>
+                    {% endif %}
+
+                    {% if cardData.contact_number %}
+                        <h3 class="card-phone-number category-title">
+                            <img src="{{ url_for('static', path='/images/phone_icon.png') }}" alt="phone number:" class="category-icon">
+                            <a href="tel:{{ cardData.contact_number }}">{{ cardData.contact_number }}</a>
+                        </h3>
+                    {% endif %}
+
+                    {% if cardData.contact_email %}
+                        <h3 class="card-email category-title">
+                            <img src="{{ url_for('static', path='/images/email_icon.png') }}" alt="contact email:" class="category-icon">
+                            <a href="mailto:{{ cardData.contact_email }}">{{ cardData.contact_email }}</a>
+                        </h3>
+                    {% endif %}
+
+                    <ul class="links-list">
+                        {% for link in cardData.contactLinksRelation %}
+                            <li class="links-list__item">
+                                <div class="links-list__item-title">
+                                    <img src="{{ url_for('static', path='/images/link_icon.png') }}" alt="Business card link:" class="category-icon">
+                                    
+                                    <h4 class="links-list__item-title-text">{{ link.title }}</h4>
+                                </div>
+                                <u>
+                                    <a href="{{ link.link }}" class="links-list__item-url">click here</a>
+                                </u>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            {% if cardData.description %}
+                <p class="card-description">{{ cardData.description.replace('\n', '<br>')|safe }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        const templateContactPhoneNumber = "{{ cardData.contact_number }}";
+        const templateContactEmail = "{{ cardData.contact_email }}";
+        const templateFullName = "{{ cardData.ownerRelation.fullName }}";
+        const templateLocalization = "{{ cardData.cityRelation.title }}";
+
+        window.addEventListener('load', () => {
+            window.location.href = "buisnesscardholder://card/{{ cardData.id }}";
+
+            if (document.querySelector('.detail-template__view')) {
+                var templateData = JSON.parse(document.querySelector('.detail-template__view').getAttribute('data-template'));
+             
+                displayTemplateData(templateData);
+            }
+        })
+
+        function displayTemplateData(templateData) {
+            function updateElementStyles(draggableText, element) {
+                if (element.type == "default") {
+                    console.log(templateContactPhoneNumber);
+                    if (element.property == 'email') {
+                        draggableText.textContent = templateContactEmail;
+                    }
+                    else if (element.property == 'phoneNumber') {
+                        draggableText.textContent = templateContactPhoneNumber;
+                    }
+                    else if (element.property == 'localozation') {
+                        draggableText.textContent = templateLocalization;
+                    }
+                    else if (element.property == 'fullName') {
+                        draggableText.textContent = templateFullName;
+                    }
+                } else {
+                    draggableText.textContent = `${element.content}`;
+                }
+            
+                const X = document.querySelector('.detail-template__view').clientWidth * element.position.x / 1050;
+                const Y = document.querySelector('.detail-template__view').clientHeight * element.position.y / 600;
+
+                draggableText.style.left = `${X}px`;
+                draggableText.style.top = `${Y}px`;
+
+                draggableText.style.color = element.style.color;
+                draggableText.style.fontSize = `${element.style.fontSize}px`;
+                draggableText.style.fontWeight = element.style.fontWeight;
+            }
+
+            templateData.forEach(element => {
+                var draggableText = document.createElement('span');
+                draggableText.setAttribute('data-property', element.property);
+                draggableText.classList.add('overlay-text', 'not-movable');
+                
+                updateElementStyles(draggableText, element);
+
+                document.querySelector('.detail-template__view').appendChild(draggableText);
+            });
+        }
+    </script>  
+{% endblock %}
